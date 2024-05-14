@@ -1,0 +1,15 @@
+{{ define "main" }}
+	<main>
+		<article>
+			{{ .Content }}
+
+			{{ with .Site.Data.movies }}
+			<ul>
+				{{ range . }}
+				<li><a href="https://www.imdb.com/title/{{ .imdb }}/">{{ .title }} ({{ .year }}) - {{ .rating }}</a></li>
+				{{ end }}
+			</ul>
+			{{ end }}
+		</article>
+	</main>
+{{ end }}

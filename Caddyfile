@@ -1,0 +1,8 @@
+http://*:8080 {
+	file_server {
+		root public
+	}
+
+	header -Server
+	encode zstd gzip
+}

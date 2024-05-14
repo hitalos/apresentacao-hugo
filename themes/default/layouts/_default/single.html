@@ -1,0 +1,21 @@
+{{ define "main" }}
+	<main>
+		<article>
+			<h2>{{ .Title }}</h2>
+			{{ .Content }}
+			{{ with .Resources.ByType "image" }}
+				<div class="gallery">
+				{{ range . }}
+					{{ $img := .Resize "320x" }}
+					<figure>
+						<a href="{{ .RelPermalink }}">
+							<img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" title="{{ $img.Title }}">
+						</a>
+						<figcaption>{{ $img.Title }}<br><span class="source">{{ $img.Params.source }}</span></figcaption>
+					</figure>
+				{{ end }}
+				</div>
+			{{ end }}
+		</article>
+	</main>
+{{ end }}

@@ -1,0 +1,26 @@
+[
+	{
+		"title": "Attack of the killer tomatoes",
+		"year": 1978,
+		"rating": 4.6,
+		"imdb": "tt0080391"
+	},
+	{
+		"title": "Tremors",
+		"year": 1990,
+		"rating": 7.2,
+		"imdb": "tt0100814"
+	},
+	{
+		"title": "The Human Centipede",
+		"year": 2009,
+		"rating": 4.4,
+		"imdb": "tt1467304"
+	},
+	{
+		"title": "Winnie-the-Pooh: Blood and Honey",
+		"year": 2023,
+		"rating": 2.9,
+		"imdb": "tt19623240"
+	}
+]

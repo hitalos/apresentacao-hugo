@@ -1,0 +1,40 @@
+{{ define "main" }}
+	<main>
+		<article>
+			<h2>{{ .Title }}</h2>
+			{{ .Content }}
+			{{ with .Resources.GetMatch "logo.png" }}
+				{{ $img := .Resize "200x" }}
+				<figure>
+					<img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}">
+					<figcaption>Resized</figcaption>
+				</figure>
+				{{ $img2 := $img.Filter (images.GaussianBlur 5) }}
+				<figure>
+					<img src="{{ $img2.RelPermalink }}" width="{{ $img2.Width }}" height="{{ $img2.Height }}">
+					<figcaption>GaussianBlur 5</figcaption>
+				</figure>
+				{{ $img3 := $img.Filter (images.Grayscale) }}
+				<figure>
+					<img src="{{ $img3.RelPermalink }}" width="{{ $img3.Width }}" height="{{ $img3.Height }}">
+					<figcaption>Grayscale</figcaption>
+				</figure>
+				{{ $img4 := $img.Filter (images.Hue 180) }}
+				<figure>
+					<img src="{{ $img4.RelPermalink }}" width="{{ $img4.Width }}" height="{{ $img4.Height }}">
+					<figcaption>Hue 180</figcaption>
+				</figure>
+				<figure>
+					{{ $img5 := .Resize "100x" }}
+					<img src="data:image/png;base64,{{ $img5.Content | base64Encode }}" width="{{ $img5.Width }}" height="{{ $img5.Height }}">
+					<figcaption>Embedded Base64</figcaption>
+				</figure>
+			{{ end }}
+
+			{{ with resources.Get "images/logo.svg" }}
+				{{ .Content | safeHTML }}
+				Embedded SVG
+			{{ end }}
+		</article>
+	</main>
+{{ end }}

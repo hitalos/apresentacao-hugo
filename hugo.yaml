@@ -1,0 +1,20 @@
+title: My static site
+baseURL: /
+languageCode: pt-br
+theme: default
+disableHugoGeneratorInject: true
+enableRobotsTXT: true
+enableGitInfo: true
+
+params:
+  description: This is a static site example.
+  keywords: "site, estático, hugo"
+
+build:
+  buildStats:
+    enable: true
+
+taxonomies: {}
+
+menus:
+  main: []

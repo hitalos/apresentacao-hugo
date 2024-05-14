@@ -1,0 +1,27 @@
+{{ $apiURL := getenv "HUGO_API_URL" }}
+{{ $resourcesBaseURL := getenv "HUGO_RESOURCES_BASEURL" }}
+{{ $root := . }}
+{{ with resources.GetRemote $apiURL }}
+	{{ with .Err }}
+		{{ errorf "%s\n" . }}
+	{{ else }}
+		{{ with .Content | transform.Unmarshal }}
+			{{ range . }}
+				{{ $path := anchorize .title }}
+				{{ $page := (dict "title" .title "path" $path "content" (dict "value" .body)) }}
+				{{ range .resources }}
+					{{ $r := . }}
+					{{ $url := printf "%s/%s/%s" $resourcesBaseURL $r.relpath $r.src }}
+					{{ with resources.GetRemote $url }}
+						{{ with .Err }}
+							{{ errorf "%s" . }}
+						{{ else }}
+							{{ $root.AddResource (dict "content" (dict "mediaType" .MediaType.Type "value" .Content) "path" (printf "%s/%s" $path $r.src) "title" $r.title "params" $r.params) }}
+						{{ end }}
+					{{ end }}
+				{{ end }}
+				{{ $root.AddPage $page }}
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

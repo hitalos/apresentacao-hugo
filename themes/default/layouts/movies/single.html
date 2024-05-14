@@ -1,0 +1,22 @@
+{{ define "main" }}
+	<main>
+		<article>
+			<h2>{{ .Title }}</h2>
+			{{ .Content }}
+			{{ with resources.GetRemote .Params.apiURL }}
+				{{ with .Err }}
+					{{ errorf "%s" . }}
+				{{ else }}
+					{{ $data := . | transform.Unmarshal }}
+					{{ with $data.results }}
+					<ul>
+						{{ range . }}
+							<li>{{ .title }}</li>
+						{{ end }}
+					</ul>
+					{{ end }}
+				{{ end }}
+			{{ end }}
+		</article>
+	</main>
+{{ end }}
